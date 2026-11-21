@@ -13,7 +13,7 @@ CORS(app)
 base_ip_cache = TTLCache(maxsize=1000, ttl=120)
 
 # Sabit MAC adresimiz
-MAC_ADDRESS = "00%3A1B%3A79%3A42%3A26%3A5C"
+MAC_ADDRESS = "00%3A1A%3A79%3A1F%3A8F%3A0C"
 
 # 1. ROUTE: Ana .m3u8 dosyası (Base IP cache'ten alınır, ancak playlist içeriği her seferinde taze çekilir)
 @app.route('/<path:stream_id>.m3u8')
@@ -26,10 +26,10 @@ def proxy_m3u8(stream_id):
     
     # Eğer cache'te yoksa, dış kaynaktan yönlendirmeyi çözüp base_ip'yi bul ve cache'e at
     if not base_ip:
-        source_url = f"http://line.cdnteam-tv1.online/play/live.php?mac={MAC_ADDRESS}&stream={stream_id}&extension=m3u8"
+        source_url = f"http://me.mdmfista.com:80/play/live.php?mac={MAC_ADDRESS}&stream={stream_id}&extension=m3u8"
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-            "Referer": "http://line.cdnteam-tv1.online/"
+            "Referer": "http://me.mdmfista.com:80/"
         }
         try:
             resp = requests.get(source_url, headers=headers, timeout=5, allow_redirects=True)
